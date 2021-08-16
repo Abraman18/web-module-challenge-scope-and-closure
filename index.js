@@ -117,9 +117,20 @@ Use the scoreboard function below to do the following:
   4. Return an array where each of it's index values equals a string stating the
   Home and Away team's scores for each inning.  Not the cummulative score.
   5. If there's a tie at the end of the innings, add this message containing the score to the end of the array:  "This game will require extra innings: Away 12 - Home 12"  (see tie example below)
-     If there isn't a tie, add this message to the end of the array: "Final Score: Away 13 - Home 11"  (see no tie example below)
+     If there isn't a tie, add this message to the end of the array: "Final Score: Away 13 - Home 11"  (see no tie example below)*/
   
-  NO TIE example: invoking scoreboard(getInningScore,inning, 9) might return 
+  function scoreboard(InningMaker, random, num){
+    let score = [];
+    for (let i = 0; i < num; i++){
+      score.push( "Inning `${i}`: `${getInningScore(inning)}`");
+    }
+};
+    
+
+console.log(scoreboard(getInningScore, inning, 9));
+  
+/*
+NO TIE example: invoking scoreboard(getInningScore, inning, 9) might return
   an array of strings like this:
 [
   "Inning 1: Away 1 - Home 2", 
@@ -150,9 +161,6 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
-}
 
 
 
