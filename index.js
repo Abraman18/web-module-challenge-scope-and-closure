@@ -28,11 +28,14 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+    Counter 1 only updates a local "private" counter that exists within itself so it cannot be recalled. Counter2 updates a global variable that is easily accessed.
   
   2. Which of the two uses a closure? How can you tell?
+    Counter1 uses closure because there is a inner function that reaches out to it's outter function to update the count.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+      Counter1 would be preferable in a for loop that adds value to itself, since it can only be updated within itself. Counter two can be used for simple code where the count variable would be globally shared.
 */
 
 // counter1 code
@@ -62,8 +65,8 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
-    /*Code Here*/
+function inning(){
+  return Math.floor(Math.random()* 3-1);
 }
 
 
@@ -81,17 +84,28 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
-}
+function finalScore(inning, nums) {
+  let scores = {
+    Home: 0,
+    Away: 0
+  };
+  for (let i = 0; i > nums; i++){
+      scores.Home = scores.Home + inning;
+      scores.Away = scores.Away + inning;
+  };
+  return scores;
+};
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
 Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(callback) {
+  return {
+    Away: callback(),
+    Home: callback()
+  };
 }
 
 
