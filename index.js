@@ -66,7 +66,7 @@ NOTE: This will be a callback function for the tasks below
 */
 
 function inning(){
-  return Math.floor(Math.random()* 3-1);
+  return Math.floor(Math.random()* 3);
 }
 
 
@@ -84,14 +84,14 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(inning, nums) {
+function finalScore(inning, numOfInnings) {
   let scores = {
     Home: 0,
     Away: 0
   };
-  for (let i = 0; i > nums; i++){
-      scores.Home = scores.Home + inning;
-      scores.Away = scores.Away + inning;
+  for (let i = 0; i < numOfInnings; i++){
+      scores.Home = scores.Home + inning();
+      scores.Away = scores.Away + inning();
   };
   return scores;
 };
@@ -101,11 +101,11 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(callback) {
+function getInningScore(inning) {
   return {
-    Away: callback(),
-    Home: callback()
-  };
+    Away: inning(),
+    Home: inning()
+  }
 }
 
 
@@ -119,12 +119,26 @@ Use the scoreboard function below to do the following:
   5. If there's a tie at the end of the innings, add this message containing the score to the end of the array:  "This game will require extra innings: Away 12 - Home 12"  (see tie example below)
      If there isn't a tie, add this message to the end of the array: "Final Score: Away 13 - Home 11"  (see no tie example below)*/
   
-  function scoreboard(InningMaker, random, num){
+  function scoreboard(gIS, inn, nums){
     let score = [];
-    for (let i = 0; i < num; i++){
-      score.push( "Inning `${i}`: `${getInningScore(inning)}`");
+    let aTotal = 0;
+    let hTotal = 0;
+    for (let i = 0; i < nums; i++){
+      let inningScores = gIS(inn);
+      let aScore = inningScores['Away'];
+      let hScore = inningScores['Home'];
+      score.push( `Inning ${i+1}: Away: ${aScore} Home:${hScore}` );
+      aTotal = aTotal + aScore;
+      hTotal = hTotal + hScore;
     }
-};
+    if (aTotal === hTotal) {
+      score.push(`This game will require extra innings: Away-${aTotal} Home-${hTotal}`);
+    } else {
+      score.push(`Final Score: Away-${aTotal} Home-${hTotal}`);
+    }
+    return score;
+    
+}
     
 
 console.log(scoreboard(getInningScore, inning, 9));
